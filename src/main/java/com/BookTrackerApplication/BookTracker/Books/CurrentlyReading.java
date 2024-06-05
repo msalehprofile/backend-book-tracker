@@ -1,34 +1,47 @@
 package com.BookTrackerApplication.BookTracker.Books;
 
+
 import jakarta.persistence.*;
 
-import java.util.Random;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "book")
+@Table(name="currentlyreading")
 
-public class Books {
+public class CurrentlyReading {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
     private String author;
     private String genre;
     private long numberOfPages;
     private String imageURL;
+    private LocalDate dateAdded =  LocalDate.now();
+    private LocalDate dateStarted =  LocalDate.now();
 
-    public Books() {
+    public CurrentlyReading() {
 
     }
 
-    public Books( long id, String title, String author, String genre, long numberOfPages, String imageURL ) {
+    public CurrentlyReading( long id, String title, String author, String genre, long numberOfPages, String imageURL, LocalDate dateAdded, LocalDate dateStarted ) {
         this.genre = genre;
         this.author = author;
         this.title = title;
         this.id = id;
         this.numberOfPages = numberOfPages;
         this.imageURL = imageURL;
+        this.dateAdded = dateAdded;
+        this.dateStarted = dateStarted;
+    }
 
+    public LocalDate getDateStarted() {
+        return dateStarted;
+    }
+
+    public LocalDate getDateAdded() {
+        return dateAdded;
     }
 
     public String getImageURL() {
