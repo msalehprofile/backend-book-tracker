@@ -1,16 +1,24 @@
 package com.BookTrackerApplication.BookTracker.Books;
 
+import jakarta.persistence.*;
+
 import java.util.Random;
 
+@Entity
+@Table(name="books")
 public class Books {
-    private long id = new Random().nextLong();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String title;
     private String author;
     private String genre;
-    private String imageURL;
 
-    public Books( long id, String title, String author, String genre, String imageURL   ) {
-        this.imageURL = imageURL;
+    public Books() {
+
+    }
+
+    public Books( long id, String title, String author, String genre ) {
         this.genre = genre;
         this.author = author;
         this.title = title;
@@ -21,39 +29,23 @@ public class Books {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
+//    public String getImageURL() {
+//        return imageURL;
+//    }
+//
+//    public void setImageURL(String imageURL) {
+//        this.imageURL = imageURL;
+//    }
 }
