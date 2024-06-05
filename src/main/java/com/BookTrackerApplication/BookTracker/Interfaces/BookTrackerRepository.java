@@ -14,6 +14,10 @@ public interface BookTrackerRepository extends JpaRepository<Books, Long> {
     // CREATE
 
     // READ
+
+    @Query(value="SELECT * FROM books.books", nativeQuery = true)
+    List<Books> getAllStoredBooks();
+
     @Query(value="SELECT * FROM books.wanttoread", nativeQuery = true)
     List<Books> getAllWantToReadBooks();
 

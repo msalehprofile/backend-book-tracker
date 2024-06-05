@@ -48,7 +48,7 @@ public class BookTrackerService {
 
     // read
     public List<Books> getAllBooks() {
-        return bookTrackerRepository.findAll();
+        return bookTrackerRepository.getAllStoredBooks();
     }
 
     public List<Books> getAllWantToReadBooks() {
