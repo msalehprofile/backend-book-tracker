@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="read")
+@Table(name="finishedbooks")
 public class ReadBook {
 
     @Id

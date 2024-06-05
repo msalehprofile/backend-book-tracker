@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,20 +49,52 @@ public class BookTrackerService {
 
     // read
     public List<Books> getAllBooks() {
-        return bookTrackerRepository.getAllStoredBooks();
+        return bookTrackerRepository.findAll();
     }
 
-    public List<Books> getAllWantToReadBooks() {
-        return bookTrackerRepository.getAllWantToReadBooks();
+    public Books getBookById(long id) {
+        Optional<Books> book = bookTrackerRepository.findById(id);
+
+        if (book.isEmpty()) {
+            throw new BookNotFoundException();
+        }
+        return book.get();
     }
 
-    public List<Books> getAllReadBooks() {
-        return bookTrackerRepository.getAllReadBooks();
+    public List<WantToReadBook> getAllWantToReadBooks() {
+        return wantToReadRepository.findAll();
     }
 
-    public List<Books> getCurrentlyReading() {
-        return bookTrackerRepository.getCurrentlyReading();
+    public WantToReadBook getTBRBookById(long id) {
+        Optional<WantToReadBook> book = wantToReadRepository.findById(id);
+
+        if (book.isEmpty()) {
+            throw new BookNotFoundException();
+        }
+        return book.get();
     }
+
+    public Long getNumberOfTBR() {
+        return wantToReadRepository.getNumberOfTBR();
+    }
+
+    public List<ReadBook> getAllReadBooks() {
+        return readBookRepository.findAll();
+    }
+
+    public Long getNumberOfBooksRead() {
+        return readBookRepository.getNumberOfBooksRead();
+    }
+
+    public Long getNumberOfPagesRead() {
+        return readBookRepository.getNumberOfPagesRead();
+    }
+
+    public List<CurrentlyReading> getCurrentlyReading() {
+        return currentlyReadingRepository.findAll();
+    }
+
+
 
 
     public List<Books> getAllByAuthor(String authorName,  int limit) {
