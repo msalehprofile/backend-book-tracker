@@ -44,31 +44,60 @@ public class BookTrackerController {
         return book;
     }
 
-
     @GetMapping("/test")
     public String getOriginCountries() {
         return "Hello";
     }
 
-    // READ
+    // ALL BOOKS READS
     @GetMapping("/allbooks")
     public ResponseEntity <List<Books>> getAllBooks() {
         return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getAllBooks());
     }
 
+    @GetMapping("/books/{id}")
+    public ResponseEntity <Books> getBookById(@PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getBookById(id));
+    }
+
+    //TBR READS
     @GetMapping("/wanttoread")
-    public ResponseEntity  <List<Books>> getAllWantToReadBooks() {
+    public ResponseEntity  <List<WantToReadBook>> getAllWantToReadBooks() {
         return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getAllWantToReadBooks());
     }
 
+    @GetMapping("/countTBR")
+    public ResponseEntity<Long> getNumberOfTBR() {
+        return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getNumberOfTBR());
+    }
+
+    @GetMapping("/TBRbooks/{id}")
+    public ResponseEntity <WantToReadBook> getTBRBookById(@PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getTBRBookById(id));
+    }
+
+    // CURRENTLY READING READS
     @GetMapping("/currentlyreading")
-    public ResponseEntity  <List<Books>> getCurrentlyReading() {
+    public ResponseEntity  <List<CurrentlyReading>> getCurrentlyReading() {
         return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getCurrentlyReading());
     }
 
-    @GetMapping("/read")
-    public ResponseEntity  <List<Books>> getAllReadBooks() {
+
+    // FINISHED READS
+
+    @GetMapping("/finishedreading")
+    public ResponseEntity  <List<ReadBook>> getAllReadBooks() {
         return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getAllReadBooks());
+    }
+
+    @GetMapping("/countreadbooks")
+    public ResponseEntity<Long> getNumberOfBooksRead() {
+        return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getNumberOfBooksRead());
+    }
+
+    @GetMapping("/countreadpages")
+    public ResponseEntity<Long> getNumberOfPagesRead() {
+        return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getNumberOfPagesRead());
     }
 
 }
