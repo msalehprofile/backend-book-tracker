@@ -18,7 +18,7 @@ public class CurrentlyReading {
     private String genre;
     private long numberOfPages;
     private String imageURL;
-    private LocalDate dateAdded =  LocalDate.now();
+    private LocalDate dateAdded;
     private LocalDate dateStarted =  LocalDate.now();
 
     public CurrentlyReading() {

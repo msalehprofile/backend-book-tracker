@@ -3,6 +3,7 @@ import com.BookTrackerApplication.BookTracker.Books.Books;
 import com.BookTrackerApplication.BookTracker.Books.CurrentlyReading;
 import com.BookTrackerApplication.BookTracker.Books.ReadBook;
 import com.BookTrackerApplication.BookTracker.Books.WantToReadBook;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -10,9 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://127.0.0.1:5173")
 public class BookTrackerController {
 
     @Autowired
@@ -38,7 +40,7 @@ public class BookTrackerController {
         return book;
     }
 
-    @PostMapping("/read")
+    @PostMapping("/finishedreading")
     public ReadBook addBookToReadList(@RequestBody ReadBook book) {
         bookTrackerService.addBookToRead(book);
         return book;
@@ -82,6 +84,10 @@ public class BookTrackerController {
         return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getCurrentlyReading());
     }
 
+    @GetMapping("/currentlyReading/{id}")
+    public ResponseEntity <CurrentlyReading> getCRBookById(@PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getCRBookById(id));
+    }
 
     // FINISHED READS
 
@@ -98,6 +104,20 @@ public class BookTrackerController {
     @GetMapping("/countreadpages")
     public ResponseEntity<Long> getNumberOfPagesRead() {
         return ResponseEntity.status(HttpStatus.OK).body(bookTrackerService.getNumberOfPagesRead());
+    }
+
+    @DeleteMapping("/currentreads/delete/{id}")
+    @Transactional
+    public ResponseEntity<String> deleteCurrentlyReadingById(@PathVariable long id) {
+        bookTrackerService.deleteCurrentlyReadingById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @DeleteMapping("/tbr/delete/{id}")
+    @Transactional
+    public ResponseEntity<String> deleteTBRById(@PathVariable long id) {
+        bookTrackerService.deleteTBRById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

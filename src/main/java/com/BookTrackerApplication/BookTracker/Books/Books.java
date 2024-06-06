@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Random;
 
 @Entity
-@Table(name = "book")
+@Table(name = "allstoredbooks")
 
 public class Books {
     @Id

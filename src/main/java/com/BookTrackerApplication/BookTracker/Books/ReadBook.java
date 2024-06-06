@@ -16,8 +16,8 @@ public class ReadBook {
     private String genre;
     private long numberOfPages;
     private String imageURL;
-    private LocalDate dateAdded =  LocalDate.now();
-    private LocalDate dateStarted =  LocalDate.now();
+    private LocalDate dateAdded;
+    private LocalDate dateStarted;
     private LocalDate dateFinished =  LocalDate.now();
     private int rating;
     private String review;
