@@ -9,6 +9,7 @@ import com.BookTrackerApplication.BookTracker.Interfaces.BookTrackerRepository;
 import com.BookTrackerApplication.BookTracker.Interfaces.CurrentlyReadingRepository;
 import com.BookTrackerApplication.BookTracker.Interfaces.ReadBookRepository;
 import com.BookTrackerApplication.BookTracker.Interfaces.WantToReadRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,16 +95,23 @@ public class BookTrackerService {
         return currentlyReadingRepository.findAll();
     }
 
+    public CurrentlyReading getCRBookById(long id) {
+        Optional<CurrentlyReading> book = currentlyReadingRepository.findById(id);
 
+        if (book.isEmpty()) {
+            throw new BookNotFoundException();
+        }
+        return book.get();
+    }
 
+    @Transactional
+    public void deleteCurrentlyReadingById(long id) {
+        currentlyReadingRepository.deleteById(id);
+    }
 
-    public List<Books> getAllByAuthor(String authorName,  int limit) {
-        List<Books> books = bookTrackerRepository.getAllByAuthor(authorName);
-
-        return books
-                .stream()
-                .limit(limit)
-                .collect(Collectors.toList());
+    @Transactional
+    public void deleteTBRById(long id) {
+        wantToReadRepository.deleteById(id);
     }
 
 }
